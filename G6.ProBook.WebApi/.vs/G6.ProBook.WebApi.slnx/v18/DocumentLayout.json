@@ -1,18 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\",
+  "WorkspaceRootPath": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|c:\\users\\kscastillo\\source\\repos\\g6.probook.webapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\services\\firebaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:services\\firebaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|c:\\users\\kscastillo\\source\\repos\\g6.probook.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\g6.probook.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:g6.probook.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|c:\\users\\kscastillo\\source\\repos\\g6.probook.webapi\\g6.probook.webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{39E28FDE-B1A2-4628-A77C-9B38A0C25F0D}|G6.ProBook.WebApi.csproj|solutionrelative:g6.probook.webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|c:\\users\\luism\\documents\\ceutec\\programacion web\\proyecto\\probookproject\\g6.probook.webapi\\g6.probook.webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{57D9EDEC-91D9-9D55-318A-8E63869DEF84}|G6.ProBook.WebApi.csproj|solutionrelative:g6.probook.webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,15 +34,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\README.md",
+              "RelativeDocumentMoniker": "README.md",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\README.md",
+              "RelativeToolTip": "README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-02-10T03:06:57.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "G6.ProBook.WebApi",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\G6.ProBook.WebApi.csproj",
+              "RelativeDocumentMoniker": "G6.ProBook.WebApi.csproj",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\G6.ProBook.WebApi.csproj",
+              "RelativeToolTip": "G6.ProBook.WebApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-02-10T03:06:04.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "FirebaseService.cs",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Services\\FirebaseService.cs",
+              "RelativeDocumentMoniker": "Services\\FirebaseService.cs",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Services\\FirebaseService.cs",
+              "RelativeToolTip": "Services\\FirebaseService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-10T03:03:53.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\Controllers\\WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -39,11 +94,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\Program.cs",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -52,16 +107,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "G6.ProBook.WebApi.http",
-              "DocumentMoniker": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\G6.ProBook.WebApi.http",
+              "DocumentMoniker": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\G6.ProBook.WebApi.http",
               "RelativeDocumentMoniker": "G6.ProBook.WebApi.http",
-              "ToolTip": "C:\\Users\\kscastillo\\source\\repos\\G6.ProBook.WebApi\\G6.ProBook.WebApi.http",
+              "ToolTip": "C:\\Users\\luism\\Documents\\Ceutec\\programacion web\\proyecto\\ProBookProject\\G6.ProBook.WebApi\\G6.ProBook.WebApi.http",
               "RelativeToolTip": "G6.ProBook.WebApi.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
               "WhenOpened": "2026-02-10T01:32:18.386Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             }
           ]
         }

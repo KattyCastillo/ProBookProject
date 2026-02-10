@@ -1,13 +1,11 @@
-Instalar estos paquetes:
-FirebaseAdmin
-Microsoft.AspNetCore.Authentication.JwtBearer
-System.IdentityModel.Tokens.Jwt
-Newtonsoft.Json
-Google.Cloud.Firestore
+### Instalar estos paquetes:
 
-Crear carpetas:
-Config
-Controllers
-DTOs
-Models
-Services
+FirebaseAdmin
+
+Microsoft.AspNetCore.Authentication.JwtBearer
+
+System.IdentityModel.Tokens.Jwt
+
+Newtonsoft.Json
+
+Google.Cloud.Firestore
