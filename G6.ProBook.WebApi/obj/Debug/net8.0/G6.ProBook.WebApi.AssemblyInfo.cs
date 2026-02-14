@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("G6.ProBook.WebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6dd1136697633b4f2d85d50f43fa6cba0ba69d9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31141636f66614d3932eb4b45ce40a0451bcd7c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("G6.ProBook.WebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("G6.ProBook.WebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
