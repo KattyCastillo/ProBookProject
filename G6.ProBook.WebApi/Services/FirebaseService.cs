@@ -1,4 +1,3 @@
-
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
@@ -13,49 +12,19 @@ namespace G6.ProBook.WebApi.Services
         private readonly FirestoreDb _firebaseDb; //Instancia de la DB en base de datos
         private readonly ILogger<FirebaseService> _logger;
 
+
         public FirebaseService(ILogger<FirebaseService> logger)
         {
             _logger = logger;
 
             try
             {
-                //Paso 1: Obtener la ruta del archivo red
-                //AppContext.BaseDirectory: Directorio raiz de la app
-                //Path.Combine: Une las rutas de forma segura
-                var credentialsPath = Path.Combine(
-                    AppContext.BaseDirectory,
-                    "Config",
-                    "firebase-credentials.json"
-                    );
-
-                //Paso 2: Validar que el archivo existe
-                //Si no, lanzar exception
-                if (!File.Exists(credentialsPath))
-                {
-                    throw new FileNotFoundException(
-                        $"Archivos de credenciales no encontrado en: {credentialsPath}"
-                    );
-                }
-
-                //Paso 3: Inicializar Firebase Admin SDK
-                //GoogleCredentials.FromFile:
-                //FirebaseApp.Create:
-                if (FirebaseApp.DefaultInstance == null)
-                {
-                    FirebaseApp.Create(new AppOptions
-                    {
-                        Credential = GoogleCredential.FromFile(credentialsPath)
-                    });
-                }
-            }
-            catch (Exception e)
-            {
-
                 //Paso #1 obtener la ruta del archivo de configuración con las credenciales
                 var credentialPath = Path.Combine(AppContext.BaseDirectory, "Config", "firebase-credentials.json");
 
                 //Paso #2 Validar que exista el archivo
-                if (!File.Exists(credentialPath)) {
+                if (!File.Exists(credentialPath))
+                {
                     throw new FileNotFoundException($"Archivo de credenciales no encontrado en: {credentialPath}");
                 }
 
@@ -72,7 +41,8 @@ namespace G6.ProBook.WebApi.Services
                 if (FirebaseApp.DefaultInstance == null)
                 {
                     FirebaseApp.Create(
-                        new AppOptions {
+                        new AppOptions
+                        {
                             Credential = GoogleCredential.FromFile(credentialPath)
                         }
                     );
@@ -96,8 +66,7 @@ namespace G6.ProBook.WebApi.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error al iniciar Firebase:{e.InnerException }");
-
+                Console.WriteLine($"Error al iniciar Firebase:{e.InnerException}");
                 Console.WriteLine(e);
                 throw;
             }
@@ -118,10 +87,11 @@ namespace G6.ProBook.WebApi.Services
             //credentials["project_id"]: acceder a la propiedad id del JSON
             return credentials["project_id"];
         }
-    
+
         public CollectionReference GetCollection(string collentionName)
         {
             return _firebaseDb.Collection(path: collentionName);
         }
     }
+
 }
