@@ -4,6 +4,7 @@ using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1;
 using Grpc.Auth;
 using Newtonsoft.Json;
+using G6.ProBook.WebApi.Models;
 
 namespace G6.ProBook.WebApi.Services
 {
@@ -91,6 +92,11 @@ namespace G6.ProBook.WebApi.Services
         public CollectionReference GetCollection(string collentionName)
         {
             return _firebaseDb.Collection(path: collentionName);
+        }
+
+        public async Task AgregarUserFirestore(User huesped)
+        {
+            await _firebaseDb.Collection("Users").Document(huesped.Id).SetAsync(huesped);
         }
     }
 
