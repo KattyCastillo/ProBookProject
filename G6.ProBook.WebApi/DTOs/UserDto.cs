@@ -4,11 +4,16 @@
     {
 
         public string Id { get; set; } = string.Empty;
-        public string FullName { get; set; } = string.Empty;
+
         public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = "user";
+
+        public string Fullname { get; set; } = string.Empty;
+
+        public string Role { get; set; } = "Huesped";
+
         public string ProfilePictureUrl { get; set; } = string.Empty;
-        public int TotalRating { get; set; }
+
+        public string ReservedRoom { get; set; } = string.Empty;
     }
 
     /// <summary>

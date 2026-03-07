@@ -1,7 +1,6 @@
-﻿namespace G6.ProBook.WebApi.Models
+﻿namespace G6.ProBook.WebApi.DTOs
 {
-    //Modelo de habitacion
-    public class Room
+    public class RoomDto
     {
         public string Id { get; set; } = string.Empty;
 
@@ -14,9 +13,5 @@
         public string RoomAmenities { get; set; } = string.Empty;
 
         public List<string>? RoomPicturesUrl { get; set; }
-
-        public double TarifaBase { get; set; }
-
-        public int ReservationCounter { get; set; }
     }
 }
