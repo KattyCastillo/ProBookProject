@@ -12,6 +12,8 @@ namespace G6.ProBook.WebApi.Models
 
         public string Role { get; set; } = string.Empty;
 
+        public string ProfilePictureUrl { get; set; } = string.Empty;
+
         public int TotalReservations { get; set; }
 
         public DateTime CreatedAt { get; set; }
