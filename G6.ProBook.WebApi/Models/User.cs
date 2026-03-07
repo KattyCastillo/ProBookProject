@@ -1,5 +1,7 @@
-﻿namespace G6.ProBook.WebApi.Models
+namespace G6.ProBook.WebApi.Models
 {
+    //Modelo realizado por Obed Casaña 
+    //Modelo de User
     public class User
     {
         public string Id { get; set; } = string.Empty;
@@ -10,9 +12,7 @@
 
         public string Role { get; set; } = string.Empty;
 
-        public string ProfilePictureUrl { get; set; } = string.Empty;
-
-        public int TotalRatings { get; set; }
+        public int TotalReservations { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
