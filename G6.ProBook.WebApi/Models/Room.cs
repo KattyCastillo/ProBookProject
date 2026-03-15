@@ -12,7 +12,7 @@
 
             public int Capacity { get; set; }
 
-            public double baseCost { get; set; }
+            public decimal basePrice { get; set; }
 
             public List<string> Amenities { get; set; } = new List<string>();
 
