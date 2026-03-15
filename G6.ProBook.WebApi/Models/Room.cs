@@ -12,16 +12,16 @@
 
             public int Capacity { get; set; }
 
-            public decimal basePrice { get; set; }
+            public decimal BasePrice { get; set; }
 
             public List<string> Amenities { get; set; } = new List<string>();
 
-            public string photoURL { get; set; } = string.Empty;
+            public string PhotoUrl { get; set; } = string.Empty;
 
             public int reservationCount { get; set; }
 
             public DateTime CreatedAt { get; set; }
 
-            public DateTime createdBy { get; set; }
+            public string CreatedBy { get; set; } = string.Empty;
     }
 }
