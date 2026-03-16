@@ -2,6 +2,7 @@
 {
     public class ReservationDto
     {
+        public string Id { get; set; } = string.Empty;
         public string UserID { get; set; } = string.Empty;
 
         public string RoomID { get; set; } = string.Empty;
@@ -17,13 +18,11 @@
 
     public class CreateReservationDto
     {
+        public string Id { get; set; } = string.Empty;
+
         public string UserID { get; set; } = string.Empty;
 
         public string RoomID { get; set; } = string.Empty;
-
-        public string RoomType { get; set; } = string.Empty;
-
-        public int RoomNumber { get; set; }
 
         public DateTime CheckInDate { get; set; }
 

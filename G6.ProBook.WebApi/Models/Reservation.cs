@@ -3,6 +3,7 @@
     //Modelo de reservacion
     public class Reservation
     {
+        public string Id { get; set; } = string.Empty;
 
         public string UserID { get; set; } = string.Empty;
 
