@@ -313,7 +313,7 @@ using Google.Cloud.Firestore;
                 Number = room.Number,
                 Type = room.Type,
                 Capacity = room.Capacity,
-                // Usamos .ToList() si quieres asegurar una copia nueva de la lista
+                // Usamos .ToList() para asegurar una copia nueva de la lista
                 Amenities = room.Amenities ?? new List<string>(),
 
                 // Verifica que ambos sean decimal
