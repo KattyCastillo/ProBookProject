@@ -1,6 +1,5 @@
 ﻿namespace G6.ProBook.WebApi.Models
 {
-    //Modelo realizado por Obed Casaña 
     //Modelo de reservacion
     public class Reservation
     {
