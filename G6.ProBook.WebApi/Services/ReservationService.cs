@@ -65,7 +65,7 @@ namespace G6.ProBook.WebApi.Services
                 }
 
                 //Revisar que el usuario no tenga otra reservacion
-                if (usuario.hasReserved)
+                if ((bool)usuario.hasReserved)
                 {
                     throw new InvalidOperationException("Usuario ya tiene reservacion");
                 }
@@ -119,6 +119,12 @@ namespace G6.ProBook.WebApi.Services
                     TotalCost = createReservationDto.TotalCost,
                     Timestamp = DateTime.UtcNow
                 };
+
+                var usersCollection = _authService.GetCollection("users");
+
+                usuario.hasReserved = true;
+
+                await usersCollection.Document(usuario.Id).SetAsync(usuario);
 
                 await reseravationCollection.Document(reservacion.Id).SetAsync(reservacion);
 
