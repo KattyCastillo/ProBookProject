@@ -9,7 +9,7 @@
 
         public string RoomType { get; set; } = string.Empty;
 
-        public int RoomNumber { get; set; }
+        public string RoomNumber { get; set; } = string.Empty;
 
         public DateTime CheckInDate { get; set; }
 

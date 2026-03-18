@@ -9,12 +9,14 @@ namespace G6.ProBook.WebApi.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
+        private readonly IAuthService _authService;
         private readonly ILogger<RoomsController> _logger;
 
         //Recibe IRoomService inyectado
-        public RoomsController(IRoomService roomService, ILogger<RoomsController> logger)
+        public RoomsController(IRoomService roomService, IAuthService authService, ILogger<RoomsController> logger)
         {
             _roomService = roomService;
+            _authService = authService;
             _logger = logger;
         }
 
@@ -88,7 +90,7 @@ namespace G6.ProBook.WebApi.Controllers
             }
          */
         [HttpPost]
-        public async Task<IActionResult> CreateRoom([FromBody] Room room)
+        public async Task<IActionResult> CreateRoom([FromBody] Room room, [FromQuery] string adminId)
         {
             try
             {
@@ -102,8 +104,26 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El número de habitación es requerido" });
                 }
 
-                // TODO: Validar que el usuario es admin (requiere token parsing)
-                var adminId = "admin_123"; // Por ahora, hardcodeado
+                if (room.Capacity <= 0)
+                {
+                    return BadRequest(new { message = "La capacidad debe ser mayor a 0" });
+                }
+
+                if (room.BasePrice <= 0)
+                {
+                    return BadRequest(new { message = "El precio base debe ser mayor a 0" });
+                }
+
+                if (string.IsNullOrWhiteSpace(adminId))
+                {
+                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                }
+
+                var admin = await _authService.GetUserById(adminId);
+                if (admin == null || admin.Role != "admin")
+                {
+                    return StatusCode(403, new { message = "Solo administradores pueden crear habitaciones" });
+                }
 
                 var createdRoom = await _roomService.CreateRoom(room, adminId);
 
@@ -136,7 +156,7 @@ namespace G6.ProBook.WebApi.Controllers
          * 403: No es administrador
          */
         [HttpPut("{roomId}")]
-        public async Task<IActionResult> UpdateRoom(string roomId, [FromBody] Room room)
+        public async Task<IActionResult> UpdateRoom(string roomId, [FromBody] Room room, [FromQuery] string adminId)
         {
             try
             {
@@ -150,8 +170,16 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El cuerpo de la petición es requerido" });
                 }
 
-                // TODO: Validar que el usuario es admin
-                var adminId = "admin_123"; // Por ahora, hardcodeado
+                if (string.IsNullOrWhiteSpace(adminId))
+                {
+                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                }
+
+                var admin = await _authService.GetUserById(adminId);
+                if (admin == null || admin.Role != "admin")
+                {
+                    return StatusCode(403, new { message = "Solo administradores pueden editar habitaciones" });
+                }
 
                 var updatedRoom = await _roomService.UpdateRoom(roomId, room, adminId);
 
@@ -190,7 +218,7 @@ namespace G6.ProBook.WebApi.Controllers
         /// 403: No es administrador
         /// </summary>
         [HttpDelete("{roomId}")]
-        public async Task<IActionResult> DeleteRoom(string roomId)
+        public async Task<IActionResult> DeleteRoom(string roomId, [FromQuery] string adminId)
         {
             try
             {
@@ -199,8 +227,16 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El ID de la habitación es requerido" });
                 }
 
-                // TODO: Validar que el usuario es admin
-                var adminId = "admin_123"; // Por ahora, hardcodeado
+                if (string.IsNullOrWhiteSpace(adminId))
+                {
+                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                }
+
+                var admin = await _authService.GetUserById(adminId);
+                if (admin == null || admin.Role != "admin")
+                {
+                    return StatusCode(403, new { message = "Solo administradores pueden eliminar habitaciones" });
+                }
 
                 await _roomService.DeleteRoom(roomId, adminId);
 

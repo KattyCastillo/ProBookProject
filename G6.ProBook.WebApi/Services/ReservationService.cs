@@ -8,16 +8,16 @@ namespace G6.ProBook.WebApi.Services
     {
         private readonly FirebaseService _firebaseService;
         private readonly ILogger<ReservationService> _logger;
-        private readonly AuthService _authService;
-        private readonly RoomService _roomService;
+        private readonly IAuthService _authService;
+        private readonly IRoomService _roomService;
         public ReservationService
             (
             FirebaseService firebaseService,
             ILogger<ReservationService> logger,
-            AuthService authService,
-            RoomService roomService
-            ) 
-        { 
+            IAuthService authService,
+            IRoomService roomService
+            )
+        {
             _firebaseService = firebaseService;
             _logger = logger;
             _authService = authService;
@@ -65,7 +65,7 @@ namespace G6.ProBook.WebApi.Services
                 }
 
                 //Revisar que el usuario no tenga otra reservacion
-                if ((bool)usuario.hasReserved)
+                if ((bool)usuario.HasReserved)
                 {
                     throw new InvalidOperationException("Usuario ya tiene reservacion");
                 }
@@ -89,8 +89,8 @@ namespace G6.ProBook.WebApi.Services
                     {
                         var reservationDict = doc.ToDictionary();
                         if (
-                            ((Timestamp)reservationDict["CheckInDate"]).ToDateTime() <= createReservationDto.CheckOutDate
-                            && createReservationDto.CheckOutDate <= ((Timestamp)reservationDict["CheckOutDate"]).ToDateTime()
+                            createReservationDto.CheckInDate < ((Timestamp)reservationDict["CheckOutDate"]).ToDateTime()
+                            && ((Timestamp)reservationDict["CheckInDate"]).ToDateTime() < createReservationDto.CheckOutDate
                             )
                         {
                             reserved = true;
@@ -120,11 +120,15 @@ namespace G6.ProBook.WebApi.Services
                     Timestamp = DateTime.UtcNow
                 };
 
-                var usersCollection = _authService.GetCollection("users");
+                var usersCollection = _firebaseService.GetCollection("users");
 
-                usuario.hasReserved = true;
-
-                await usersCollection.Document(usuario.Id).SetAsync(usuario);
+                await usersCollection.Document(usuario.Id).UpdateAsync(
+                    new Dictionary<string, object>
+                    {
+                        { "HasReserved", true },
+                        { "ReservationTimestamp", DateTime.UtcNow }
+                    }
+                );
 
                 await reseravationCollection.Document(reservacion.Id).SetAsync(reservacion);
 
@@ -166,14 +170,14 @@ namespace G6.ProBook.WebApi.Services
             }
         }
 
-        public async Task<List<Room>?> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate)
+        public async Task<List<RoomDto>?> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate)
         {
             try
             {
                 var roomList = await _roomService.GetAllRooms();
                 var reseravationList = await GetAllReservations();
 
-                List<Room> availableRooms = new List<Room>();
+                List<RoomDto> availableRooms = new List<RoomDto>();
 
                 foreach(var room in roomList)
                 {
@@ -183,7 +187,7 @@ namespace G6.ProBook.WebApi.Services
                     {
                         if(room.Id == reservation.RoomID)
                         {
-                            if(checkInDate <= reservation.CheckOutDate && reservation.CheckOutDate <= checkInDate)
+                            if(checkInDate < reservation.CheckOutDate && reservation.CheckInDate < checkOutDate)
                             {
                                 reserved = true;
                             }
@@ -240,8 +244,7 @@ namespace G6.ProBook.WebApi.Services
                 var reseravationCollection = _firebaseService.GetCollection("reservations");
 
                 var query = reseravationCollection
-                    .WhereEqualTo("RoomID", roomId)
-                    .OrderByDescending("Timestamp");
+                    .WhereEqualTo("RoomID", roomId);
 
                 // Obtener snapshot (lectura de datos)
                 var snapshot = await query.GetSnapshotAsync();
@@ -274,8 +277,7 @@ namespace G6.ProBook.WebApi.Services
                 var reseravationCollection = _firebaseService.GetCollection("reservations");
 
                 var query = reseravationCollection
-                    .WhereEqualTo("RoomID", userId)
-                    .OrderByDescending("Timestamp");
+                    .WhereEqualTo("UserID", userId);
 
                 // Obtener snapshot (lectura de datos)
                 var snapshot = await query.GetSnapshotAsync();

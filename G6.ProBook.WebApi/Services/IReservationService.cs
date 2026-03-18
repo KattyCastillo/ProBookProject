@@ -7,7 +7,7 @@ namespace G6.ProBook.WebApi.Services
     {
         Task<Reservation> CreateReservation(CreateReservationDto createReservationDto);
 
-        Task<List<Room>?> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate);
+        Task<List<RoomDto>?> GetAvailableRooms(DateTime checkInDate, DateTime checkOutDate);
 
         Task<ReservationDto?> GetReservationById(string reservationId);
 

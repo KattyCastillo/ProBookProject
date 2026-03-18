@@ -12,12 +12,14 @@
 
         public string ProfilePictureUrl { get; set; } = string.Empty;
 
-        public int TotalRatings { get; set; }
-
         public DateTime CreatedAt { get; set; }
 
         public DateTime LastLogin { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+        public bool HasReserved { get; set; } = false;
+
+        public DateTime ReservationTimestamp { get; set; }
     }
 }
