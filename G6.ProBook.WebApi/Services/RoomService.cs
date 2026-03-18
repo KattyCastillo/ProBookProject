@@ -120,10 +120,20 @@ using Google.Cloud.Firestore;
                     throw new ArgumentException("El tipo de habitación es requerida");
                 }
 
-                // Generar ID si no lo tiene
+                var roomsCollection = _firebaseService.GetCollection("rooms");
+
+                // Generar ID si no lo tiene, o verificar que no exista ya
                 if (string.IsNullOrWhiteSpace(room.Id))
                 {
                     room.Id = Guid.NewGuid().ToString();
+                }
+                else
+                {
+                    var existingDoc = await roomsCollection.Document(room.Id).GetSnapshotAsync();
+                    if (existingDoc.Exists)
+                    {
+                        throw new ArgumentException($"Ya existe una habitación con el ID {room.Id}");
+                    }
                 }
 
                 // Establecer información de auditoría
@@ -134,7 +144,6 @@ using Google.Cloud.Firestore;
                 room.reservationCount = 0;
 
                 // Guardar en Firestore
-                var roomsCollection = _firebaseService.GetCollection("rooms");
                 await roomsCollection.Document(room.Id).SetAsync(room);
 
                 Console.WriteLine($"Habitación creada: {room.Number} ({room.Id})");

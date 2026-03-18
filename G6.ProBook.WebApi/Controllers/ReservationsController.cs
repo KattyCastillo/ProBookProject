@@ -74,6 +74,10 @@ namespace G6.ProBook.WebApi.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 _logger.LogError($"Error al crear reservacion: {ex.Message}");
@@ -137,7 +141,7 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El ID de usuario es requerido" });
                 }
 
-                var reservaciones = await _reservationService.GetReservationsByRoomId(userId);
+                var reservaciones = await _reservationService.GetReservationsByUserId(userId);
                 return Ok(reservaciones);
             }
             catch (Exception ex)
