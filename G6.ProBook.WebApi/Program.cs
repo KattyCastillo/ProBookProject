@@ -12,8 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 // ============================================
 builder.Services.AddSingleton<FirebaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 // ============================================
 // CONFIGURAR CORS (para que Angular pueda conectarse)

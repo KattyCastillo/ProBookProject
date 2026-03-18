@@ -305,11 +305,15 @@ namespace G6.ProBook.WebApi.Services
             {
                 Id = reservation.Id,
                 UserID = reservation.UserID,
+                UserName = reservation.UserName,
                 RoomID = reservation.RoomID,
                 RoomType = reservation.RoomType,
                 RoomNumber = reservation.RoomNumber,
                 CheckInDate = reservation.CheckInDate,
-                CheckOutDate = reservation.CheckOutDate
+                CheckOutDate = reservation.CheckOutDate,
+                Nights = reservation.Nights,
+                TotalCost = reservation.TotalCost,
+                Timestamp = reservation.Timestamp
             };
         }
     }
