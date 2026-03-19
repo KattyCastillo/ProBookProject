@@ -8,6 +8,8 @@
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = "user";
         public string ProfilePictureUrl { get; set; } = string.Empty;
+        public bool HasReserved { get; set; } = false;
+        public DateTime ReservationTimestamp { get; set; } = DateTime.MinValue;
     }
 
     /// <summary>

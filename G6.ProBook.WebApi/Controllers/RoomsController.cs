@@ -1,5 +1,6 @@
 ﻿using G6.ProBook.WebApi.Models;
 using G6.ProBook.WebApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace G6.ProBook.WebApi.Controllers
@@ -20,11 +21,14 @@ namespace G6.ProBook.WebApi.Controllers
             _logger = logger;
         }
 
-        //GET /api/room
-        //Obtiene todas las habitaciones con filtro opcional por Tipo de Habitación
-        //Parámetros query (opcional)
-        //type: Filtrar por tipo de habitación específica.
-        //Ejemplo: GET /api/room?type=Duplex
+        /// <summary>
+        /// GET /api/rooms
+        /// Obtiene todas las habitaciones con filtro opcional por Tipo de Habitación
+        /// Acceso: Público (sin autenticación)
+        /// Parámetros query (opcional):
+        /// - type: Filtrar por tipo de habitación específica.
+        /// Ejemplo: GET /api/rooms?type=Duplex
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllRooms([FromQuery] string? type = null)
         {
@@ -39,12 +43,14 @@ namespace G6.ProBook.WebApi.Controllers
                 return StatusCode(500, new { message = "Error al obtener habitaciones" });
             }
         }
-        /*
-         * GET /api/room/{roomID}
-         * Obtiene una habitación específica por su ID
-         * Parámetro:
-         * roomID: ID de la película
-         */
+
+        /// <summary>
+        /// GET /api/rooms/{roomId}
+        /// Obtiene una habitación específica por su ID
+        /// Acceso: Público (sin autenticación)
+        /// Parámetro:
+        /// - roomId: ID de la habitación
+        /// </summary>
         [HttpGet("{roomId}")]
         public async Task<IActionResult> GetRoomById(string roomId)
         {
@@ -69,28 +75,26 @@ namespace G6.ProBook.WebApi.Controllers
                 return StatusCode(500, new { message = "Error al obtener habitación" });
             }
         }
-        /*
-         * POST /api/room
-         * Crea una nueva habitación (Sólo el administrador)
-         * Header requerido:
-         * Authorization: Bearer {token}
-         * Cuerpo esperado (JSON):
-         * {
-                "number": "302-A",
-                "type": "Suite Presidencial",
-                "capacity": 4,
-                "amenities": [
-                "Wi-Fi de alta velocidad",
-                "Minibar premium",
-                "Vista al mar",
-                "Jacuzzi"
-                ],
-                "basePrice": 150.50,
-                "photoUrl": "https..."
-            }
-         */
+
+        /// <summary>
+        /// POST /api/rooms
+        /// Crea una nueva habitación (Solo managers)
+        /// Requiere autenticación y rol "manager"
+        /// Header requerido:
+        /// - Authorization: Bearer {token}
+        /// Cuerpo esperado (JSON):
+        /// {
+        ///   "number": "302-A",
+        ///   "type": "Suite Presidencial",
+        ///   "capacity": 4,
+        ///   "amenities": ["Wi-Fi", "Minibar", "Jacuzzi"],
+        ///   "basePrice": 150.50,
+        ///   "photoUrl": "https://..."
+        /// }
+        /// </summary>
         [HttpPost]
-        public async Task<IActionResult> CreateRoom([FromBody] Room room, [FromQuery] string adminId)
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> CreateRoom([FromBody] Room room)
         {
             try
             {
@@ -114,22 +118,19 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El precio base debe ser mayor a 0" });
                 }
 
-                if (string.IsNullOrWhiteSpace(adminId))
+                // Extraer ID del manager desde el JWT
+                var managerId = User.FindFirst("sub")?.Value ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(managerId))
                 {
-                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                    return StatusCode(403, new { message = "No se pudo identificar al usuario" });
                 }
 
-                var admin = await _authService.GetUserById(adminId);
-                if (admin == null || admin.Role != "admin")
-                {
-                    return StatusCode(403, new { message = "Solo administradores pueden crear habitaciones" });
-                }
+                var createdRoom = await _roomService.CreateRoom(room, managerId);
 
-                var createdRoom = await _roomService.CreateRoom(room, adminId);
+                _logger.LogInformation($"Habitación creada: {createdRoom.Number} por manager: {managerId}");
 
-                _logger.LogInformation($"Habitación creada: {createdRoom.Number}");
-
-                return Created($"/api/room/{createdRoom.Id}", createdRoom);
+                return Created($"/api/rooms/{createdRoom.Id}", createdRoom);
             }
             catch (ArgumentException ex)
             {
@@ -141,22 +142,20 @@ namespace G6.ProBook.WebApi.Controllers
                 return StatusCode(500, new { message = "Error al crear la habitación" });
             }
         }
-        /*
-         * PUT /api/room/{roomId}
-         * Edita una habitación existente (únicamente el administrador)
-         * Header requerido:
-         * Authorization: Bearer {token}
-         * Parámetro:
-         * roomId: ID de la película a editar
-         * Cuerpo: Mismo formato que CreateRoom
-         * Respuesta exitosa (200): La habitación actualizada
-         * Errores:
-         * 404: Habitación no encontrada
-         * 401: No autenticado
-         * 403: No es administrador
-         */
+
+        /// <summary>
+        /// PUT /api/rooms/{roomId}
+        /// Edita una habitación existente (Solo managers)
+        /// Requiere autenticación y rol "manager"
+        /// Header requerido:
+        /// - Authorization: Bearer {token}
+        /// Parámetro:
+        /// - roomId: ID de la habitación a editar
+        /// Cuerpo: Mismo formato que CreateRoom
+        /// </summary>
         [HttpPut("{roomId}")]
-        public async Task<IActionResult> UpdateRoom(string roomId, [FromBody] Room room, [FromQuery] string adminId)
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> UpdateRoom(string roomId, [FromBody] Room room)
         {
             try
             {
@@ -170,20 +169,17 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El cuerpo de la petición es requerido" });
                 }
 
-                if (string.IsNullOrWhiteSpace(adminId))
+                // Extraer ID del manager desde el JWT
+                var managerId = User.FindFirst("sub")?.Value ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(managerId))
                 {
-                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                    return StatusCode(403, new { message = "No se pudo identificar al usuario" });
                 }
 
-                var admin = await _authService.GetUserById(adminId);
-                if (admin == null || admin.Role != "admin")
-                {
-                    return StatusCode(403, new { message = "Solo administradores pueden editar habitaciones" });
-                }
+                var updatedRoom = await _roomService.UpdateRoom(roomId, room, managerId);
 
-                var updatedRoom = await _roomService.UpdateRoom(roomId, room, adminId);
-
-                _logger.LogInformation($"Habitación actualizada: {roomId}");
+                _logger.LogInformation($"Habitación actualizada: {roomId} por manager: {managerId}");
 
                 return Ok(updatedRoom);
             }
@@ -201,24 +197,20 @@ namespace G6.ProBook.WebApi.Controllers
                 return StatusCode(500, new { message = "Error al actualizar habitación" });
             }
         }
+
         /// <summary>
-        /// DELETE /api/room/{roomId}
-        /// Elimina una habitación (SOLO ADMIN)
+        /// DELETE /api/rooms/{roomId}
+        /// Elimina una habitación (Solo managers)
+        /// Requiere autenticación y rol "manager"
         /// Header requerido:
-        ///   Authorization: Bearer {token}
+        /// - Authorization: Bearer {token}
         /// Parámetro:
-        ///   roomId: ID de la habitación a eliminar
-        /// 
+        /// - roomId: ID de la habitación a eliminar
         /// Respuesta exitosa (204): No content
-        /// 
-        /// Errores:
-        /// 404: Habitación no encontrada
-        /// 400: Habitación tiene reservaciones
-        /// 401: No autenticado
-        /// 403: No es administrador
         /// </summary>
         [HttpDelete("{roomId}")]
-        public async Task<IActionResult> DeleteRoom(string roomId, [FromQuery] string adminId)
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> DeleteRoom(string roomId)
         {
             try
             {
@@ -227,20 +219,17 @@ namespace G6.ProBook.WebApi.Controllers
                     return BadRequest(new { message = "El ID de la habitación es requerido" });
                 }
 
-                if (string.IsNullOrWhiteSpace(adminId))
+                // Extraer ID del manager desde el JWT
+                var managerId = User.FindFirst("sub")?.Value ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(managerId))
                 {
-                    return BadRequest(new { message = "El ID de administrador es requerido" });
+                    return StatusCode(403, new { message = "No se pudo identificar al usuario" });
                 }
 
-                var admin = await _authService.GetUserById(adminId);
-                if (admin == null || admin.Role != "admin")
-                {
-                    return StatusCode(403, new { message = "Solo administradores pueden eliminar habitaciones" });
-                }
+                await _roomService.DeleteRoom(roomId, managerId);
 
-                await _roomService.DeleteRoom(roomId, adminId);
-
-                _logger.LogInformation($"Habitación eliminada: {roomId}");
+                _logger.LogInformation($"Habitación eliminada: {roomId} por manager: {managerId}");
 
                 return NoContent(); // 204
             }
@@ -254,23 +243,14 @@ namespace G6.ProBook.WebApi.Controllers
                 return StatusCode(500, new { message = "Error al eliminar habitación" });
             }
         }
+
         /// <summary>
-        /// GET /api/room/search/{searchTerm}
-        /// 
-        /// Busca habitación por número
-        /// 
+        /// GET /api/rooms/search/{searchTerm}
+        /// Busca habitaciones por número
+        /// Acceso: Público (sin autenticación)
         /// Parámetro:
-        ///   searchTerm: Lo que el usuario busca
-        ///   Ejemplo: GET /api/room/search/B-17
-        /// 
-        /// Respuesta exitosa (200):
-        /// [
-        ///   {
-        ///     "id": "room_001",
-        ///     "number": "B-17",
-        ///     ...
-        ///   }
-        /// ]
+        /// - searchTerm: Término a buscar
+        /// Ejemplo: GET /api/rooms/search/B-17
         /// </summary>
         [HttpGet("search/{searchTerm}")]
         public async Task<IActionResult> SearchRoom(string searchTerm)

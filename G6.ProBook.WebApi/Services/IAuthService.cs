@@ -14,5 +14,10 @@ namespace G6.ProBook.WebApi.Services
         Task<User?> GetUserById(string userId);
 
         string GenerateJwtToken(User user);
+
+        /// <summary>
+        /// Obtiene todos los huéspedes registrados (usuarios con rol "huesped")
+        /// </summary>
+        Task<List<User>?> GetAllGuests();
     }
 }
