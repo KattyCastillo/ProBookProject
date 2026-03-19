@@ -276,7 +276,7 @@ namespace G6.ProBook.WebApi.Services
                     LastLogin = ((Timestamp)userDict["LastLogin"]).ToDateTime(),
                     IsActive = (bool)userDict["IsActive"],
                     HasReserved = (bool)userDict["HasReserved"],
-                    ReservationTimestamp = ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime()
+                    ReservationTimestamp = userDict.ContainsKey("ReservationTimestamp") ? ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime() : DateTime.MinValue
                 };
 
                 return user;
@@ -312,7 +312,7 @@ namespace G6.ProBook.WebApi.Services
                         LastLogin = ((Timestamp)userDict["LastLogin"]).ToDateTime(),
                         IsActive = (bool)userDict["IsActive"],
                         HasReserved = (bool)userDict["HasReserved"],
-                        ReservationTimestamp = ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime()
+                        ReservationTimestamp = userDict.ContainsKey("ReservationTimestamp") ? ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime() : DateTime.MinValue
                     };
                     guests.Add(guest);
                 }
