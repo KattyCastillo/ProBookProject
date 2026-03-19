@@ -275,7 +275,8 @@ namespace G6.ProBook.WebApi.Services
                     CreatedAt = ((Timestamp)userDict["CreatedAt"]).ToDateTime(),
                     LastLogin = ((Timestamp)userDict["LastLogin"]).ToDateTime(),
                     IsActive = (bool)userDict["IsActive"],
-                    HasReserved = (bool)userDict["HasReserved"]
+                    HasReserved = (bool)userDict["HasReserved"],
+                    ReservationTimestamp = ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime()
                 };
 
                 return user;
@@ -287,6 +288,43 @@ namespace G6.ProBook.WebApi.Services
             }
         }
 
+        public async Task<List<User>?> GetAllGuests()
+        {
+            try
+            {
+                var usersCollection = _firebaseService.GetCollection("users");
+                var query = usersCollection.WhereEqualTo("Role", "huesped");
+                var snapshot = await query.GetSnapshotAsync();
+
+                var guests = new List<User>();
+
+                foreach (var doc in snapshot.Documents)
+                {
+                    var userDict = doc.ToDictionary();
+                    var guest = new User
+                    {
+                        Id = userDict["Id"].ToString(),
+                        Email = userDict["Email"].ToString(),
+                        Fullname = userDict["Fullname"].ToString(),
+                        Role = userDict["Role"].ToString(),
+                        ProfilePictureUrl = userDict["ProfilePictureUrl"].ToString(),
+                        CreatedAt = ((Timestamp)userDict["CreatedAt"]).ToDateTime(),
+                        LastLogin = ((Timestamp)userDict["LastLogin"]).ToDateTime(),
+                        IsActive = (bool)userDict["IsActive"],
+                        HasReserved = (bool)userDict["HasReserved"],
+                        ReservationTimestamp = ((Timestamp)userDict["ReservationTimestamp"]).ToDateTime()
+                    };
+                    guests.Add(guest);
+                }
+
+                return guests;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error al obtener huéspedes: {ex.Message}");
+                return null;
+            }
+        }
 
     }
 }
