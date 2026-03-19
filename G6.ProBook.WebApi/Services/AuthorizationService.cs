@@ -57,7 +57,7 @@ namespace G6.ProBook.WebApi.Services
 
         public async Task<bool> IsGuestAsync(string userId)
         {
-            return await UserHasRoleAsync(userId, "guest");
+            return await UserHasRoleAsync(userId, "huesped");
         }
     }
 }
